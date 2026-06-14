@@ -3,6 +3,7 @@ package art.bangmarcel.passwordlesskotlin.repositories
 import art.bangmarcel.passwordlesskotlin.BuildKonfig
 import art.bangmarcel.passwordlesskotlin.models.BeginRegisterWebAuthn
 import art.bangmarcel.passwordlesskotlin.models.JsonResponse
+import art.bangmarcel.passwordlesskotlin.models.LoginResponse
 import art.bangmarcel.passwordlesskotlin.models.UserInput
 import art.bangmarcel.passwordlesskotlin.utils.toJsonElement
 import io.ktor.client.HttpClient
@@ -42,6 +43,40 @@ class AuthRepo(private val client: HttpClient) {
 
                 contentType(ContentType.Application.Json)
                 setBody(registerResponseJson.toJsonElement())
+            }.body()
+        }
+        catch (e: Exception) {
+            return JsonResponse(
+                items = null,
+                isSuccess = false,
+                message = e.message ?: "Unknown error",
+            )
+        }
+    }
+
+    suspend fun loginBegin(username: String): JsonResponse<BeginRegisterWebAuthn> {
+        try {
+            return client.post("$baseUrl/v1/auth/login/begin") {
+                parameter("username", username)
+            }.body()
+        }
+        catch (e: Exception) {
+            return JsonResponse(
+                items = null,
+                isSuccess = false,
+                message = e.message ?: "Unknown error",
+            )
+        }
+    }
+
+    suspend fun loginFinish(sessionId: String, username: String, credentialJson: String): JsonResponse<LoginResponse> {
+        try {
+            return client.post("$baseUrl/v1/auth/login/finish") {
+                parameter("session_id", sessionId)
+                parameter("username", username)
+
+                contentType(ContentType.Application.Json)
+                setBody(credentialJson.toJsonElement())
             }.body()
         }
         catch (e: Exception) {
