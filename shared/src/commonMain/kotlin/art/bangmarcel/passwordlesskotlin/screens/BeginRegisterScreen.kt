@@ -103,6 +103,7 @@ class BeginRegisterScreen(private val repo: AuthRepo, private val passkeyManager
                             viewModel.registerFinish(
                                 it,
                                 username,
+                                email,
                                 { e ->
                                     println("failed: $e")
                                 },

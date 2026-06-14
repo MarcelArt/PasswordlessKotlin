@@ -37,7 +37,7 @@ class BeginRegisterViewModel(private val repo: AuthRepo, private val passkeyMana
         }
     }
 
-    fun registerFinish(registrationData: BeginRegisterWebAuthn, username: String, onFailure: (String) -> Unit, onSuccess: () -> Unit) {
+    fun registerFinish(registrationData: BeginRegisterWebAuthn, username: String, email: String, onFailure: (String) -> Unit, onSuccess: () -> Unit) {
         screenModelScope.launch {
             try {
                 val cleanOptionsString = Json.encodeToString(JsonElement.serializer(), registrationData.options)
@@ -47,7 +47,7 @@ class BeginRegisterViewModel(private val repo: AuthRepo, private val passkeyMana
 
                 val nativeResult = passkeyManager.registerPasskey(publicKey, registrationData.sessionId)
 
-                val res = repo.registerFinish(nativeResult.sessionId, username, nativeResult.registrationResponseJson)
+                val res = repo.registerFinish(nativeResult.sessionId, username, email, nativeResult.registrationResponseJson)
 
                 if (res.isSuccess) {
                     _isSuccess.value = true

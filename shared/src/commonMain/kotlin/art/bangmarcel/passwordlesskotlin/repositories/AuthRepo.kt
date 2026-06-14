@@ -33,11 +33,12 @@ class AuthRepo(private val client: HttpClient) {
         }
     }
 
-    suspend fun registerFinish(sessionId: String, username: String, registerResponseJson: String): JsonResponse<Unit> {
+    suspend fun registerFinish(sessionId: String, username: String, email: String, registerResponseJson: String): JsonResponse<Unit> {
         try {
             return client.post("$baseUrl/v1/auth/register/finish") {
                 parameter("session_id", sessionId)
                 parameter("username", username)
+                parameter("email", email)
 
                 contentType(ContentType.Application.Json)
                 setBody(registerResponseJson.toJsonElement())
