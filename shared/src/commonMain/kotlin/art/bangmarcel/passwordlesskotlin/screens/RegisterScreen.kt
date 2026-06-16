@@ -20,7 +20,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.autofill.ContentType
@@ -32,7 +31,7 @@ import art.bangmarcel.passwordlesskotlin.viewmodels.BeginRegisterViewModel
 import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 
-class BeginRegisterScreen(private val repo: AuthRepo, private val passkeyManager: PasskeyManager): Screen {
+class RegisterScreen(private val repo: AuthRepo, private val passkeyManager: PasskeyManager): Screen {
     @Composable
     override fun Content() {
         val viewModel = rememberScreenModel { BeginRegisterViewModel(repo, passkeyManager) }
