@@ -24,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import art.bangmarcel.passwordlesskotlin.models.PasskeyManager
 import art.bangmarcel.passwordlesskotlin.repositories.AuthRepo
 import art.bangmarcel.passwordlesskotlin.viewmodels.LoginViewModel
@@ -36,7 +37,7 @@ class LoginScreen(private val repo: AuthRepo, private val passkeyManager: Passke
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-        val viewModel = rememberScreenModel { LoginViewModel(repo) }
+        val viewModel = rememberScreenModel { LoginViewModel(repo, passkeyManager) }
 
         var username by remember { mutableStateOf("") }
         val isPending by viewModel.isPending.collectAsState()
@@ -106,9 +107,27 @@ class LoginScreen(private val repo: AuthRepo, private val passkeyManager: Passke
                                 println("Login failed: $e")
                             },
                             onSuccess = {
-                                println("Login successful")
+                                println("Welcome ${it.user.username}")
                             }
                         )
+//                        viewModel.loginBegin(
+//                            username = username,
+//                            onFailure = { e ->
+//                                println("Login failed: $e")
+//                            },
+//                            onSuccess = {
+//                                viewModel.loginFinish(
+//                                    loginData = it,
+//                                    username = username,
+//                                    onFailure = { e ->
+//                                        println("Login failed: $e")
+//                                    },
+//                                    onSuccess = { user ->
+//                                        println("Welcome $user")
+//                                    }
+//                                )
+//                            }
+//                        )
                     },
                     modifier = Modifier.fillMaxWidth().height(50.dp),
                     enabled = !isPending && username.isNotBlank()
@@ -127,7 +146,7 @@ class LoginScreen(private val repo: AuthRepo, private val passkeyManager: Passke
 
                 TextButton(
                     onClick = {
-                        navigator.pop()
+                        navigator.push(RegisterScreen(repo, passkeyManager))
                     },
                     enabled = !isPending
                 ) {

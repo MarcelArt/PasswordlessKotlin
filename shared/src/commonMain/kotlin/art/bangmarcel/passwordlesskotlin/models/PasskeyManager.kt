@@ -8,6 +8,13 @@ data class RegistrationResult(
     val sessionId: String
 )
 
+@Serializable
+data class LoginResult(
+    val loginResponseJson: String, // To send back to /login/finish
+    val sessionId: String
+)
+
 expect class PasskeyManager {
     suspend fun registerPasskey(options: String, sessionId: String): RegistrationResult
+    suspend fun authenticatePasskey(optionsJson: String, sessionId: String): LoginResult
 }

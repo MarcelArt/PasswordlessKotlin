@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.material3.TextButton
 import art.bangmarcel.passwordlesskotlin.models.PasskeyManager
 import art.bangmarcel.passwordlesskotlin.repositories.AuthRepo
-import art.bangmarcel.passwordlesskotlin.viewmodels.BeginRegisterViewModel
+import art.bangmarcel.passwordlesskotlin.viewmodels.RegisterViewModel
 import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
@@ -36,10 +36,11 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 
 
 class RegisterScreen(private val repo: AuthRepo, private val passkeyManager: PasskeyManager): Screen {
+    val viewModel = RegisterViewModel(repo, passkeyManager)
+
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-        val viewModel = rememberScreenModel { BeginRegisterViewModel(repo, passkeyManager) }
 
         var username by remember { mutableStateOf("") }
         var email by remember { mutableStateOf("") }

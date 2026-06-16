@@ -4,6 +4,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import art.bangmarcel.passwordlesskotlin.models.PasskeyManager
 import art.bangmarcel.passwordlesskotlin.repositories.AuthRepo
+import art.bangmarcel.passwordlesskotlin.screens.LoginScreen
 import art.bangmarcel.passwordlesskotlin.screens.RegisterScreen
 import cafe.adriel.voyager.navigator.Navigator
 import io.ktor.client.*
@@ -27,6 +28,6 @@ fun App(passkeyManager: PasskeyManager) {
     val aRepo = AuthRepo(client)
 
     MaterialTheme {
-        Navigator(RegisterScreen(aRepo, passkeyManager))
+        Navigator(LoginScreen(aRepo, passkeyManager))
     }
 }

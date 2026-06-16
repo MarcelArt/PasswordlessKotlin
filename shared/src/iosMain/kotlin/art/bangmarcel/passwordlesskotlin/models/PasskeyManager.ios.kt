@@ -7,4 +7,8 @@ actual class PasskeyManager {
     ): RegistrationResult {
         TODO("Not yet implemented")
     }
+
+    actual suspend fun authenticatePasskey(optionsJson: String, sessionId: String): LoginResult {
+        TODO("Not yet implemented")
+    }
 }
