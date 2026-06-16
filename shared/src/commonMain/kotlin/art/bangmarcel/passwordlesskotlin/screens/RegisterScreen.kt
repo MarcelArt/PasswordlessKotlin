@@ -25,15 +25,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.autofill.ContentType
 import androidx.compose.ui.autofill.contentType
 import androidx.compose.ui.unit.dp
+import androidx.compose.material3.TextButton
 import art.bangmarcel.passwordlesskotlin.models.PasskeyManager
 import art.bangmarcel.passwordlesskotlin.repositories.AuthRepo
 import art.bangmarcel.passwordlesskotlin.viewmodels.BeginRegisterViewModel
 import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+
 
 class RegisterScreen(private val repo: AuthRepo, private val passkeyManager: PasskeyManager): Screen {
     @Composable
     override fun Content() {
+        val navigator = LocalNavigator.currentOrThrow
         val viewModel = rememberScreenModel { BeginRegisterViewModel(repo, passkeyManager) }
 
         var username by remember { mutableStateOf("") }
@@ -124,6 +129,17 @@ class RegisterScreen(private val repo: AuthRepo, private val passkeyManager: Pas
                     } else {
                         Text("Create Passkey")
                     }
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                TextButton(
+                    onClick = {
+                        navigator.push(LoginScreen(repo, passkeyManager))
+                    },
+                    enabled = !isLoading
+                ) {
+                    Text("Already have an account? Log In")
                 }
             }
         }
