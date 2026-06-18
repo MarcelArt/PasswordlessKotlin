@@ -1,9 +1,11 @@
 package art.bangmarcel.passwordlesskotlin
 
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import art.bangmarcel.passwordlesskotlin.models.PasskeyManager
 import art.bangmarcel.passwordlesskotlin.repositories.AuthRepo
+import art.bangmarcel.passwordlesskotlin.repositories.UserRepo
 import art.bangmarcel.passwordlesskotlin.screens.LoginScreen
 import art.bangmarcel.passwordlesskotlin.screens.RegisterScreen
 import cafe.adriel.voyager.navigator.Navigator
@@ -26,8 +28,11 @@ fun App(passkeyManager: PasskeyManager) {
     }
 
     val aRepo = AuthRepo(client)
+    val uRepo = UserRepo(client)
 
-    MaterialTheme {
-        Navigator(LoginScreen(aRepo, passkeyManager))
+    MaterialTheme(
+        colorScheme = darkColorScheme()
+    ) {
+        Navigator(RegisterScreen(uRepo))
     }
 }

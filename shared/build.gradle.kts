@@ -103,27 +103,27 @@ buildkonfig {
 
     // default config is required
     defaultConfigs {
-        buildConfigField(STRING, "apiBaseUrl", getProperty("apiBaseUrl", "https://passwordless.bangmarcel.art"))
+        buildConfigField(STRING, "apiBaseUrl", getProperty("apiBaseUrl", "https://passwordless.bangmarcel.art/api"))
     }
 
     targetConfigs {
         // names in create should be the same as target names you specified
         create("android") {
-            buildConfigField(STRING, "apiBaseUrl", getProperty("apiBaseUrl", "https://passwordless.bangmarcel.art"))
+            buildConfigField(STRING, "apiBaseUrl", getProperty("apiBaseUrl", "https://passwordless.bangmarcel.art/api"))
         }
 
         create("ios") {
-            buildConfigField(STRING, "apiBaseUrl", getProperty("apiBaseUrl", "https://passwordless.bangmarcel.art"))
+            buildConfigField(STRING, "apiBaseUrl", getProperty("apiBaseUrl", "https://passwordless.bangmarcel.art/api"))
         }
 
         create("jvm") {
-            buildConfigField(STRING, "apiBaseUrl", getProperty("apiBaseUrl", "https://passwordless.bangmarcel.art"))
+            buildConfigField(STRING, "apiBaseUrl", getProperty("apiBaseUrl", "https://passwordless.bangmarcel.art/api"))
         }
     }
 
     targetConfigs("dev") {
         create("jvm") {
-            buildConfigField(STRING, "apiBaseUrl", getProperty("apiBaseUrl", "https://passwordless.bangmarcel.art"))
+            buildConfigField(STRING, "apiBaseUrl", getProperty("apiBaseUrl", "https://passwordless.bangmarcel.art/api"))
         }
 
     }
