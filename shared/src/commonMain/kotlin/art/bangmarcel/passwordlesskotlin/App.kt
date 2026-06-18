@@ -27,7 +27,7 @@ fun App(passkeyManager: PasskeyManager) {
         }
     }
 
-    val aRepo = AuthRepo(client)
+//    val aRepo = AuthRepo(client)
     val uRepo = UserRepo(client)
 
     MaterialTheme(

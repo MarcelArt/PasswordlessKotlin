@@ -45,25 +45,7 @@ import kotlinx.serialization.json.Json
 
 class RegisterScreen(
     private val repo: UserRepo,
-    private val authRepo: AuthRepo? = null,
-    private val passkeyManager: PasskeyManager? = null
 ): Screen {
-
-    // Secondary constructor to handle navigation from LoginScreen
-    constructor(authRepo: AuthRepo, passkeyManager: PasskeyManager) : this(
-        repo = UserRepo(HttpClient(CIO) {
-            install(ContentNegotiation) {
-                json(Json {
-                    prettyPrint = false
-                    isLenient = true
-                    ignoreUnknownKeys = true
-                })
-            }
-        }),
-        authRepo = authRepo,
-        passkeyManager = passkeyManager
-    )
-
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
@@ -228,17 +210,7 @@ class RegisterScreen(
                     // Switch to Sign In
                     TextButton(
                         onClick = {
-                            val finalAuthRepo = authRepo ?: AuthRepo(HttpClient(CIO) {
-                                install(ContentNegotiation) {
-                                    json(Json {
-                                        prettyPrint = false
-                                        isLenient = true
-                                        ignoreUnknownKeys = true
-                                    })
-                                }
-                            })
-                            val finalPasskeyManager = passkeyManager ?: initPasskeyManager()
-                            navigator.push(LoginScreen(finalAuthRepo, finalPasskeyManager))
+                            navigator.push(LoginScreen(repo))
                         },
                         enabled = !isPending
                     ) {

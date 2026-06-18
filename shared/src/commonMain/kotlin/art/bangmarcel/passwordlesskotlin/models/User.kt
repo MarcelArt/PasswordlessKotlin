@@ -9,5 +9,5 @@ data class User(
     @SerialName("ID") val id: String,
     val username: String,
     val email: String,
-    val credentials: JsonElement,
+    val credentials: JsonElement? = null,
 )
