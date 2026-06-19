@@ -3,9 +3,11 @@ package art.bangmarcel.passwordlesskotlin.configs
 import art.bangmarcel.passwordlesskotlin.BuildKonfig
 import art.bangmarcel.passwordlesskotlin.models.JsonResponse
 import art.bangmarcel.passwordlesskotlin.models.LoginResponse
+import art.bangmarcel.passwordlesskotlin.repositories.AuthRepo
 import art.bangmarcel.passwordlesskotlin.repositories.UserRepo
 import art.bangmarcel.passwordlesskotlin.stores.SecureTokenManager
 import art.bangmarcel.passwordlesskotlin.viewmodels.LoginViewModel
+import art.bangmarcel.passwordlesskotlin.viewmodels.QrScannerViewModel
 import art.bangmarcel.passwordlesskotlin.viewmodels.RegisterViewModel
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -86,9 +88,13 @@ fun initKoin(secureTokenManager: SecureTokenManager) {
         single { secureTokenManager }
         single(named("bareClient")) { buildBareClient() }
         single { buildHttpClient(get(), get(named("bareClient"))) }
+
         single { UserRepo(get()) }
+        single { AuthRepo(get()) }
+
         factory { LoginViewModel(get(), get()) }
         factory { RegisterViewModel(get()) }
+        factory { QrScannerViewModel(get()) }
     }
 
     startKoin {

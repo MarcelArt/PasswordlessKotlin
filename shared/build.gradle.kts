@@ -48,6 +48,7 @@ kotlin {
             implementation(libs.androidx.credentials)
             implementation(libs.androidx.credentials.play.services.auth)
             implementation(libs.androidx.security.crypto)
+//            implementation(libs.qr.kit)
         }
         commonMain.dependencies {
             implementation(libs.compose.runtime)
@@ -69,6 +70,8 @@ kotlin {
             implementation(libs.voyager.koin)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.koin.compose)
+            implementation(libs.easyqrscan)
+//            implementation(libs.qr.kit)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

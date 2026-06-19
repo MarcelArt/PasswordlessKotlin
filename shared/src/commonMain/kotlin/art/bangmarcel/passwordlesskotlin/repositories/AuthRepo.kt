@@ -16,6 +16,7 @@ import io.ktor.http.contentType
 
 class AuthRepo(private val client: HttpClient) {
     private val baseUrl = BuildKonfig.apiBaseUrl
+    private val routeGroup = "$baseUrl/v1/auth"
 
     suspend fun registerBegin(input: UserInput): JsonResponse<BeginRegisterWebAuthn> {
         try {
@@ -81,6 +82,20 @@ class AuthRepo(private val client: HttpClient) {
         }
         catch (e: Exception) {
             return JsonResponse(
+                items = null,
+                isSuccess = false,
+                message = e.message ?: "Unknown error",
+            )
+        }
+    }
+
+    suspend fun qrApprove(sessionId: String): JsonResponse<Boolean> {
+        return try {
+            client.post("$routeGroup/qr/approve/$sessionId"){
+                contentType(ContentType.Application.Json)
+            }.body()
+        } catch (e: Exception) {
+            JsonResponse(
                 items = null,
                 isSuccess = false,
                 message = e.message ?: "Unknown error",
