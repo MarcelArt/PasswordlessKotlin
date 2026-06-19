@@ -64,7 +64,9 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.screenModel)
+            implementation(libs.voyager.koin)
             implementation(libs.kotlinx.serialization.json)
+            implementation(libs.koin.compose)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
