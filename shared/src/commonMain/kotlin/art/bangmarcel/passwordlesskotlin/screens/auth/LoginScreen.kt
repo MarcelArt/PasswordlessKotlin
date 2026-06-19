@@ -32,11 +32,13 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import art.bangmarcel.passwordlesskotlin.enums.ViewModelStatus
+import art.bangmarcel.passwordlesskotlin.screens.main.MainLayoutScreen
 import art.bangmarcel.passwordlesskotlin.viewmodels.LoginViewModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import org.koin.compose.getKoin
 
 class LoginScreen: Screen {
     @Composable
@@ -180,6 +182,7 @@ class LoginScreen: Screen {
                                 },
                                 onSuccess = {
                                     println("Welcome back, ${it.user.username}")
+                                    navigator.push(MainLayoutScreen())
                                 }
                             )
                         },

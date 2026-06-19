@@ -87,7 +87,7 @@ fun initKoin(secureTokenManager: SecureTokenManager) {
         single(named("bareClient")) { buildBareClient() }
         single { buildHttpClient(get(), get(named("bareClient"))) }
         single { UserRepo(get()) }
-        factory { LoginViewModel(get()) }
+        factory { LoginViewModel(get(), get()) }
         factory { RegisterViewModel(get()) }
     }
 

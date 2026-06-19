@@ -14,7 +14,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
-        val passkeyManager = PasskeyManager(this)
         val secureTokenManager = SecureTokenManager(this)
 
         setContent {

@@ -5,13 +5,14 @@ import art.bangmarcel.passwordlesskotlin.enums.ViewModelStatus
 import art.bangmarcel.passwordlesskotlin.models.LoginInput
 import art.bangmarcel.passwordlesskotlin.models.LoginResponse
 import art.bangmarcel.passwordlesskotlin.repositories.UserRepo
+import art.bangmarcel.passwordlesskotlin.stores.SecureTokenManager
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class LoginViewModel(private val repo: UserRepo): ScreenModel {
+class LoginViewModel(private val repo: UserRepo, private val secureTokenManager: SecureTokenManager): ScreenModel {
     private val _status = MutableStateFlow(ViewModelStatus.NONE)
     val status = _status.asStateFlow()
 
@@ -29,6 +30,7 @@ class LoginViewModel(private val repo: UserRepo): ScreenModel {
                 val res = repo.login(input)
                 if (!res.isSuccess  || res.items == null) throw Exception(res.message)
 
+                secureTokenManager.saveTokens(res.items.accessToken, res.items.refreshToken)
                 _status.value = ViewModelStatus.SUCCESS
                 onSuccess(res.items)
             }
