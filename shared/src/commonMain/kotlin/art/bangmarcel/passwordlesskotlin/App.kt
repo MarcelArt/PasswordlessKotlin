@@ -3,6 +3,7 @@ package art.bangmarcel.passwordlesskotlin
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
+import art.bangmarcel.passwordlesskotlin.configs.initKoin
 import art.bangmarcel.passwordlesskotlin.models.PasskeyManager
 import art.bangmarcel.passwordlesskotlin.repositories.AuthRepo
 import art.bangmarcel.passwordlesskotlin.repositories.UserRepo
@@ -14,6 +15,9 @@ import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
+import org.koin.compose.KoinApplication
+import org.koin.core.context.startKoin
+import org.koin.dsl.koinConfiguration
 
 @Composable
 fun App(passkeyManager: PasskeyManager) {
@@ -30,9 +34,11 @@ fun App(passkeyManager: PasskeyManager) {
 //    val aRepo = AuthRepo(client)
     val uRepo = UserRepo(client)
 
+    initKoin()
+
     MaterialTheme(
         colorScheme = darkColorScheme()
     ) {
-        Navigator(RegisterScreen(uRepo))
+        Navigator(RegisterScreen())
     }
 }

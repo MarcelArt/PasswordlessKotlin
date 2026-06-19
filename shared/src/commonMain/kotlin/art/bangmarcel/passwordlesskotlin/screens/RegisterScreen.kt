@@ -35,6 +35,7 @@ import art.bangmarcel.passwordlesskotlin.repositories.UserRepo
 import art.bangmarcel.passwordlesskotlin.viewmodels.RegisterViewModel
 import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import io.ktor.client.HttpClient
@@ -43,13 +44,11 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-class RegisterScreen(
-    private val repo: UserRepo,
-): Screen {
+class RegisterScreen: Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-        val viewModel = rememberScreenModel { RegisterViewModel(repo) }
+        val viewModel = koinScreenModel<RegisterViewModel>()
 
         var username by remember { mutableStateOf("") }
         var email by remember { mutableStateOf("") }
@@ -210,7 +209,7 @@ class RegisterScreen(
                     // Switch to Sign In
                     TextButton(
                         onClick = {
-                            navigator.push(LoginScreen(repo))
+                            navigator.push(LoginScreen())
                         },
                         enabled = !isPending
                     ) {
