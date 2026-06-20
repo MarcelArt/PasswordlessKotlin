@@ -4,9 +4,11 @@ import art.bangmarcel.passwordlesskotlin.BuildKonfig
 import art.bangmarcel.passwordlesskotlin.models.JsonResponse
 import art.bangmarcel.passwordlesskotlin.models.LoginResponse
 import art.bangmarcel.passwordlesskotlin.repositories.AuthRepo
+import art.bangmarcel.passwordlesskotlin.repositories.TokenRepo
 import art.bangmarcel.passwordlesskotlin.repositories.UserRepo
 import art.bangmarcel.passwordlesskotlin.stores.SecureTokenManager
 import art.bangmarcel.passwordlesskotlin.viewmodels.LoginViewModel
+import art.bangmarcel.passwordlesskotlin.viewmodels.MainLayoutViewModel
 import art.bangmarcel.passwordlesskotlin.viewmodels.QrScannerViewModel
 import art.bangmarcel.passwordlesskotlin.viewmodels.RegisterViewModel
 import io.ktor.client.HttpClient
@@ -19,6 +21,9 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.post
 import io.ktor.client.request.headers
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.serialization.json.Json
 import org.koin.core.context.startKoin
 import org.koin.core.qualifier.named
@@ -89,13 +94,16 @@ fun initKoin(secureTokenManager: SecureTokenManager) {
         single { secureTokenManager }
         single(named("bareClient")) { buildBareClient() }
         single { buildHttpClient(get(), get(named("bareClient"))) }
+        single { CoroutineScope(SupervisorJob() + Dispatchers.Default) }
 
         single { UserRepo(get()) }
         single { AuthRepo(get()) }
+        single { TokenRepo(get(), get(), get()) }
 
         factory { LoginViewModel(get(), get()) }
         factory { RegisterViewModel(get()) }
         factory { QrScannerViewModel(get()) }
+        factory { MainLayoutViewModel(get()) }
     }
 
     startKoin {
