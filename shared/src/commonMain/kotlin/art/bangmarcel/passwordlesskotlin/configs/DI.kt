@@ -17,7 +17,7 @@ import io.ktor.client.plugins.auth.providers.BearerTokens
 import io.ktor.client.plugins.auth.providers.bearer
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.post
-import io.ktor.http.headers
+import io.ktor.client.request.headers
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.core.context.startKoin
@@ -67,6 +67,7 @@ fun buildHttpClient(secureTokenManager: SecureTokenManager, bareClient: HttpClie
 
                         if (!res.isSuccess || res.items == null) throw Exception(res.message)
 
+                        secureTokenManager.saveTokens(res.items.accessToken, res.items.refreshToken)
                         BearerTokens(res.items.accessToken, res.items.refreshToken)
                     }
                     catch (e: Exception) {

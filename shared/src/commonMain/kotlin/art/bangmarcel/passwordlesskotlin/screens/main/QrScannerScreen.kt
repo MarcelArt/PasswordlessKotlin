@@ -64,6 +64,7 @@ import org.publicvalue.multiplatform.qrcode.ScannerWithPermissions
 import passwordlesskotlin.shared.generated.resources.Res
 import passwordlesskotlin.shared.generated.resources.check_24px
 import passwordlesskotlin.shared.generated.resources.close_24px
+import kotlin.time.Duration.Companion.milliseconds
 
 class QrScannerScreen: Screen {
     @Composable
@@ -80,7 +81,7 @@ class QrScannerScreen: Screen {
         // Auto-pop back to the main flow on success after 2 seconds
         LaunchedEffect(status) {
             if (status == ViewModelStatus.SUCCESS) {
-                delay(2000)
+                delay(2000.milliseconds)
                 navigator.pop()
             }
         }
