@@ -8,6 +8,7 @@ import art.bangmarcel.passwordlesskotlin.models.User
 import art.bangmarcel.passwordlesskotlin.stores.SecureTokenManager
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
+import io.ktor.client.request.get
 import io.ktor.client.request.headers
 import io.ktor.client.request.post
 import kotlinx.coroutines.CoroutineScope
@@ -66,10 +67,27 @@ class TokenRepo(private val secureTokenManager: SecureTokenManager, private val 
         _authState.value = AuthState.AUTHENTICATED
     }
 
-
     fun logout() {
         secureTokenManager.clearTokens()
         _user.value = null
         _authState.value = AuthState.UNAUTHENTICATED
+    }
+
+    suspend fun current(): JsonResponse<User> {
+        return try {
+            val res = client.get("$baseUrl/v1/users/current").body<JsonResponse<User>>()
+            val user = res.unwrap()
+            _user.value = user
+            _authState.value = AuthState.AUTHENTICATED
+            res
+        } catch (e: Exception) {
+            _user.value = null
+            _authState.value = AuthState.UNAUTHENTICATED
+            JsonResponse(
+                null,
+                false,
+                e.message ?: "Unknown error",
+            )
+        }
     }
 }

@@ -7,6 +7,7 @@ import art.bangmarcel.passwordlesskotlin.repositories.AuthRepo
 import art.bangmarcel.passwordlesskotlin.repositories.TokenRepo
 import art.bangmarcel.passwordlesskotlin.repositories.UserRepo
 import art.bangmarcel.passwordlesskotlin.stores.SecureTokenManager
+import art.bangmarcel.passwordlesskotlin.viewmodels.HomeViewModel
 import art.bangmarcel.passwordlesskotlin.viewmodels.LoginViewModel
 import art.bangmarcel.passwordlesskotlin.viewmodels.MainLayoutViewModel
 import art.bangmarcel.passwordlesskotlin.viewmodels.QrScannerViewModel
@@ -104,6 +105,7 @@ fun initKoin(secureTokenManager: SecureTokenManager) {
         factory { RegisterViewModel(get()) }
         factory { QrScannerViewModel(get()) }
         factory { MainLayoutViewModel(get()) }
+        factory { HomeViewModel(get()) }
     }
 
     startKoin {

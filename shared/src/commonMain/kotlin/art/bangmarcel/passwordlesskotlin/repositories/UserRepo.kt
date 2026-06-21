@@ -4,6 +4,7 @@ import art.bangmarcel.passwordlesskotlin.BuildKonfig
 import art.bangmarcel.passwordlesskotlin.models.JsonResponse
 import art.bangmarcel.passwordlesskotlin.models.LoginInput
 import art.bangmarcel.passwordlesskotlin.models.LoginResponse
+import art.bangmarcel.passwordlesskotlin.models.User
 import art.bangmarcel.passwordlesskotlin.models.UserInput
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body

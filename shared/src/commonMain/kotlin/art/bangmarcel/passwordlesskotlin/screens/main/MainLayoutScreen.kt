@@ -9,6 +9,7 @@ import art.bangmarcel.passwordlesskotlin.screens.auth.LoginScreen
 import art.bangmarcel.passwordlesskotlin.viewmodels.MainLayoutViewModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
+import cafe.adriel.voyager.navigator.CurrentScreen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
@@ -22,12 +23,15 @@ class MainLayoutScreen: Screen {
         val user = viewModel.user.collectAsState()
         val isLoggedIn = viewModel.isLoggedIn.collectAsState()
 
-        Scaffold(
-            bottomBar = {
-                BottomAppBar {  }
+
+        Navigator(HomeScreen()) {
+            Scaffold(
+                bottomBar = {
+                    BottomAppBar {  }
+                }
+            ) {
+                CurrentScreen()
             }
-        ) { paddingValues ->
-            Navigator(QrScannerScreen())
         }
     }
 
