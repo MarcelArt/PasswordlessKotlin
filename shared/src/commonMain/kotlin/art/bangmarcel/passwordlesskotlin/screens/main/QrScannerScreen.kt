@@ -170,23 +170,23 @@ class QrScannerScreen: Screen {
                     .padding(24.dp)
             ) {
                 // Top Action Bar: Close Button
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Start
-                ) {
-                    IconButton(
-                        onClick = { navigator.pop() },
-                        colors = IconButtonDefaults.iconButtonColors(
-                            containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.6f),
-                            contentColor = MaterialTheme.colorScheme.onSurface
-                        )
-                    ) {
-                        Icon(
-                            painter = painterResource(Res.drawable.close_24px),
-                            contentDescription = "Close Scanner"
-                        )
-                    }
-                }
+//                Row(
+//                    modifier = Modifier.fillMaxWidth(),
+//                    horizontalArrangement = Arrangement.Start
+//                ) {
+//                    IconButton(
+//                        onClick = { navigator.pop() },
+//                        colors = IconButtonDefaults.iconButtonColors(
+//                            containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.6f),
+//                            contentColor = MaterialTheme.colorScheme.onSurface
+//                        )
+//                    ) {
+//                        Icon(
+//                            painter = painterResource(Res.drawable.close_24px),
+//                            contentDescription = "Close Scanner"
+//                        )
+//                    }
+//                }
 
                 Spacer(modifier = Modifier.weight(1f))
 

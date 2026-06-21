@@ -101,7 +101,7 @@ fun initKoin(secureTokenManager: SecureTokenManager) {
         single { AuthRepo(get()) }
         single { TokenRepo(get(), get(), get()) }
 
-        factory { LoginViewModel(get(), get()) }
+        factory { LoginViewModel(get(), get(), get()) }
         factory { RegisterViewModel(get()) }
         factory { QrScannerViewModel(get()) }
         factory { MainLayoutViewModel(get()) }
